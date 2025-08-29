@@ -18,11 +18,11 @@ Below are a few samples that showcases
 >
 > ```swift
 > private struct Sample: Identifiable {
->  var color: UIColor
+>  var color: Color
 >  var id: UUID = UUID()
 >  var height: CGFloat
 >  
->  init(_ color: UIColor, _ height: CGFloat) {
+>  init(_ color: Color, _ height: CGFloat) {
 >    self.color = color
 >    self.height = height
 >  }
@@ -34,15 +34,15 @@ Below are a few samples that showcases
 ```swift
 struct SimpleExample: View {
   @State var data = [
-    Sample(UIColor.systemBlue, 200),
-    Sample(UIColor.systemGreen, 100),
-    Sample(UIColor.systemGray, 300)
+    Sample(.blue, 200),
+    Sample(.green, 100),
+    Sample(.gray, 300)
   ]
   
   var body: some View {
     ReorderableVStack($data) { $sample in
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(sample.color))
+        .fill(sample.color)
         .frame(height: sample.height)
         .padding()
     }
@@ -56,9 +56,9 @@ struct SimpleExample: View {
 ```swift
 struct SimpleExample: View {
   @State var data = [
-    Sample(UIColor.systemBlue, 200),
-    Sample(UIColor.systemGreen, 100),
-    Sample(UIColor.systemGray, 300)
+    Sample(.blue, 200),
+    Sample(.green, 100),
+    Sample(.gray, 300)
   ]
   
   var body: some View {
@@ -69,7 +69,7 @@ struct SimpleExample: View {
       }
     }) { sample in
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(sample.color))
+        .fill(sample.color)
         .frame(height: sample.height)
         .padding()
     }
@@ -83,16 +83,16 @@ struct SimpleExample: View {
 ```swift
 struct SimpleExample: View {
   @State var data = [
-    Sample(UIColor.systemBlue, 200),
-    Sample(UIColor.systemGreen, 100),
-    Sample(UIColor.systemGray, 300)
+    Sample(.blue, 200),
+    Sample(.green, 100),
+    Sample(.gray, 300)
   ]
   
   var body: some View {
     ReorderableVStack($data) { $sample, isDragged in // <------ Notice the additional `isDragged` parameter
       ZStack(alignment: .leading) {
         RoundedRectangle(cornerRadius: 32, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(height: sample.height)
         
         Image(systemName: "line.3.horizontal")
@@ -117,19 +117,19 @@ struct SimpleExample: View {
 ```swift
 struct SimpleExample: View {
   @State var data = [
-    Sample(UIColor.systemBlue, 200),
-    Sample(UIColor.systemGreen, 200),
-    Sample(UIColor.systemGray, 300),
-    Sample(UIColor.systemMint, 200),
-    Sample(UIColor.systemPurple, 300),
-    Sample(UIColor.orange, 200)
+    Sample(.blue, 200),
+    Sample(.green, 200),
+    Sample(.gray, 300),
+    Sample(.mint, 200),
+    Sample(.purple, 300),
+    Sample(.orange, 200)
   ]
   
   var body: some View {  
     ScrollView {
       ReorderableVStack($data) { $sample in
         RoundedRectangle(cornerRadius: 32, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(height: sample.height)
           .padding()
       }.padding()
@@ -148,9 +148,9 @@ private struct Sample2D: Identifiable {
 
 struct SimpleExample: View {
   @State var data: [Sample2D] = [
-    .init(row: [.init(UIColor.systemBlue, 200), .init(UIColor.systemGreen, 100), .init(UIColor.systemGray, 200)]),
-    .init(row: [.init(UIColor.systemRed, 200), .init(UIColor.systemMint, 100), .init(UIColor.systemPurple, 200)]),
-    .init(row: [.init(UIColor.systemIndigo, 200), .init(UIColor.systemTeal, 100), .init(UIColor.systemYellow, 200)]),
+    .init(row: [.init(.blue, 200), .init(.green, 100), .init(.gray, 200)]),
+    .init(row: [.init(.red, 200), .init(.mint, 100), .init(.purple, 200)]),
+    .init(row: [.init(.indigo, 200), .init(.teal, 100), .init(.yellow, 200)]),
   ]
 
   var body: some View {
@@ -158,7 +158,7 @@ struct SimpleExample: View {
       HStack {
         ZStack {
           RoundedRectangle(cornerRadius: 24, style: .continuous)
-            .fill(Color(UIColor.systemOrange))
+            .fill(Color.orange)
             .frame(width: 64, height: 64)
             .padding()
          
@@ -170,7 +170,7 @@ struct SimpleExample: View {
         
         ReorderableHStack($sample.row) { $sample in
           RoundedRectangle(cornerRadius: 24, style: .continuous)
-            .fill(Color(sample.color))
+            .fill(sample.color)
             .frame(width: 64, height: 64)
             .padding()
         }

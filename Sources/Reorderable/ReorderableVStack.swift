@@ -51,11 +51,11 @@ public struct ReorderableVStack<Data: RandomAccessCollection, Content: View>: Vi
 }
 
 private struct Sample: Identifiable {
-  var color: UIColor
+  var color: Color
   var id: UUID = UUID()
   var height: CGFloat
   
-  init(_ color: UIColor, _ height: CGFloat) {
+  init(_ color: Color, _ height: CGFloat) {
     self.color = color
     self.height = height
   }
@@ -63,7 +63,7 @@ private struct Sample: Identifiable {
 
 #Preview("Short Stack") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 100), Sample(UIColor.systemGray, 300)]
+    Sample(.blue, 200), Sample(.green, 100), Sample(.gray, 300)]
   
     ReorderableVStack(data, onMove: { from, to in
       withAnimation {
@@ -72,7 +72,7 @@ private struct Sample: Identifiable {
       }
     }) { sample in
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(sample.color))
+        .fill(sample.color)
         .frame(height: sample.height)
         .padding()
     }
@@ -81,7 +81,7 @@ private struct Sample: Identifiable {
 
 #Preview("Short Stack with Disable Toggle") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 100), Sample(UIColor.systemGray, 200)]
+    Sample(.blue, 200), Sample(.green, 100), Sample(.gray, 200)]
   
   @Previewable @State var disableToggle: Bool = true
   
@@ -96,7 +96,7 @@ private struct Sample: Identifiable {
       }
     }) { sample in
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(sample.color))
+        .fill(sample.color)
         .frame(height: sample.height)
         .padding()
     }
@@ -107,7 +107,7 @@ private struct Sample: Identifiable {
 
 #Preview("Short Stack with Drag State") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 100), Sample(UIColor.systemGray, 300)]
+    Sample(.blue, 200), Sample(.green, 100), Sample(.gray, 300)]
   
     ReorderableVStack(data, onMove: { from, to in
       withAnimation {
@@ -116,7 +116,7 @@ private struct Sample: Identifiable {
       }
     }) { sample, isDragged in
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(sample.color))
+        .fill(sample.color)
         .frame(height: sample.height)
         .scaleEffect(isDragged ? 1.1: 1)
         .animation(.easeOut, value: isDragged)
@@ -127,7 +127,7 @@ private struct Sample: Identifiable {
 
 #Preview("Short Stack with Handles") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 100), Sample(UIColor.systemGray, 300)]
+    Sample(.blue, 200), Sample(.green, 100), Sample(.gray, 300)]
   
     ReorderableVStack(data, onMove: { from, to in
       withAnimation {
@@ -137,7 +137,7 @@ private struct Sample: Identifiable {
     }) { sample in
       ZStack(alignment: .leading) {
         RoundedRectangle(cornerRadius: 32, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(height: sample.height)
         
         Image(systemName: "line.3.horizontal")
@@ -152,7 +152,7 @@ private struct Sample: Identifiable {
 
 #Preview("Tall Stack without Autoscroll") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 200), Sample(UIColor.systemGray, 300), Sample(UIColor.systemMint, 200), Sample(UIColor.systemPurple, 300), Sample(UIColor.orange, 200)]
+    Sample(.blue, 200), Sample(.green, 200), Sample(.gray, 300), Sample(.mint, 200), Sample(.purple, 300), Sample(.orange, 200)]
   
   ScrollView {
     ReorderableVStack(data, onMove: { from, to in
@@ -163,7 +163,7 @@ private struct Sample: Identifiable {
     }) { sample in
       ZStack(alignment: .leading) {
         RoundedRectangle(cornerRadius: 32, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(height: sample.height)
         
         Image(systemName: "line.3.horizontal")
@@ -179,7 +179,7 @@ private struct Sample: Identifiable {
 
 #Preview("Tall Stack with Autoscroll") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 200), Sample(UIColor.systemGray, 300), Sample(UIColor.systemMint, 200), Sample(UIColor.systemPurple, 300), Sample(UIColor.orange, 200)]
+    Sample(.blue, 200), Sample(.green, 200), Sample(.gray, 300), Sample(.mint, 200), Sample(.purple, 300), Sample(.orange, 200)]
   
   ScrollView {
     ReorderableVStack(data, onMove: { from, to in
@@ -190,7 +190,7 @@ private struct Sample: Identifiable {
     }) { sample in
       ZStack(alignment: .leading) {
         RoundedRectangle(cornerRadius: 32, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(height: sample.height)
         
         Image(systemName: "line.3.horizontal")
@@ -206,12 +206,12 @@ private struct Sample: Identifiable {
 
 #Preview("Tall Stack with Autoscroll and Content Before + After") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 200), Sample(UIColor.systemGray, 300), Sample(UIColor.systemMint, 200), Sample(UIColor.systemPurple, 300), Sample(UIColor.orange, 200)]
+    Sample(.blue, 200), Sample(.green, 200), Sample(.gray, 300), Sample(.mint, 200), Sample(.purple, 300), Sample(.orange, 200)]
   
   ScrollView {
     VStack {
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(UIColor.systemIndigo))
+        .fill(Color.indigo)
         .frame(height: 300)
         .padding()
         .overlay {
@@ -226,7 +226,7 @@ private struct Sample: Identifiable {
       }) { sample in
         ZStack(alignment: .leading) {
           RoundedRectangle(cornerRadius: 32, style: .continuous)
-            .fill(Color(sample.color))
+            .fill(sample.color)
             .frame(height: sample.height)
           
           Image(systemName: "line.3.horizontal")
@@ -240,7 +240,7 @@ private struct Sample: Identifiable {
       
       
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(UIColor.systemRed))
+        .fill(Color.red)
         .frame(height: 300)
         .padding()
         .overlay {
@@ -252,12 +252,12 @@ private struct Sample: Identifiable {
 
 #Preview("Short Stack with Add/Remove") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 100), Sample(UIColor.systemGray, 200)
+    Sample(.blue, 200), Sample(.green, 100), Sample(.gray, 200)
   ]
     
   VStack {
     Button {
-      data.append(.init(UIColor.systemMint, 100))
+      data.append(.init(.mint, 100))
     } label: {
       Text("Add Element")
     }.buttonStyle(.borderedProminent)
@@ -269,7 +269,7 @@ private struct Sample: Identifiable {
       }
     }) { sample in
       RoundedRectangle(cornerRadius: 32, style: .continuous)
-        .fill(Color(sample.color))
+        .fill(sample.color)
         .frame(height: sample.height)
         .padding()
         .overlay {
@@ -291,9 +291,9 @@ private struct Sample2D: Identifiable {
 
 #Preview("Short Stack of Narrow Stack") {
   @Previewable @State var data: [Sample2D] = [
-    .init(row: [.init(UIColor.systemBlue, 200), .init(UIColor.systemGreen, 100), .init(UIColor.systemGray, 200)]),
-    .init(row: [.init(UIColor.systemRed, 200), .init(UIColor.systemMint, 100), .init(UIColor.systemPurple, 200)]),
-    .init(row: [.init(UIColor.systemIndigo, 200), .init(UIColor.systemTeal, 100), .init(UIColor.systemYellow, 200)]),
+    .init(row: [.init(.blue, 200), .init(.green, 100), .init(.gray, 200)]),
+    .init(row: [.init(.red, 200), .init(.mint, 100), .init(.purple, 200)]),
+    .init(row: [.init(.indigo, 200), .init(.teal, 100), .init(.yellow, 200)]),
   ]
 
   ReorderableVStack(data, onMove: { from, to in
@@ -305,7 +305,7 @@ private struct Sample2D: Identifiable {
     HStack {
       ZStack {
         RoundedRectangle(cornerRadius: 24, style: .continuous)
-          .fill(Color(UIColor.systemOrange))
+          .fill(Color.orange)
           .frame(width: 64, height: 64)
           .padding()
        
@@ -323,7 +323,7 @@ private struct Sample2D: Identifiable {
         }
       }) { sample in
         RoundedRectangle(cornerRadius: 24, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(width: 64, height: 64)
           .padding()
       }
@@ -333,7 +333,7 @@ private struct Sample2D: Identifiable {
 
 #Preview("Using Binding") {
   @Previewable @State var data = [
-    Sample(UIColor.systemBlue, 200), Sample(UIColor.systemGreen, 100), Sample(UIColor.systemGray, 300)]
+    Sample(.blue, 200), Sample(.green, 100), Sample(.gray, 300)]
   
   ReorderableVStack($data) { $sample in
     RoundedRectangle(cornerRadius: 32, style: .continuous)
@@ -342,7 +342,7 @@ private struct Sample2D: Identifiable {
       .padding()
       .onTapGesture {
         withAnimation {
-          sample.color = [UIColor.systemRed, UIColor.systemYellow, UIColor.systemMint].randomElement()!
+          sample.color = [Color.red, Color.yellow, Color.mint].randomElement()!
         }
       }
   }
@@ -351,16 +351,16 @@ private struct Sample2D: Identifiable {
 
 #Preview("Short Stack of Narrow Stack using bindings") {
   @Previewable @State var data: [Sample2D] = [
-    .init(row: [.init(UIColor.systemBlue, 200), .init(UIColor.systemGreen, 100), .init(UIColor.systemGray, 200)]),
-    .init(row: [.init(UIColor.systemRed, 200), .init(UIColor.systemMint, 100), .init(UIColor.systemPurple, 200)]),
-    .init(row: [.init(UIColor.systemIndigo, 200), .init(UIColor.systemTeal, 100), .init(UIColor.systemYellow, 200)]),
+    .init(row: [.init(.blue, 200), .init(.green, 100), .init(.gray, 200)]),
+    .init(row: [.init(.red, 200), .init(.mint, 100), .init(.purple, 200)]),
+    .init(row: [.init(.indigo, 200), .init(.teal, 100), .init(.yellow, 200)]),
   ]
 
   ReorderableVStack($data) { $sample in
     HStack {
       ZStack {
         RoundedRectangle(cornerRadius: 24, style: .continuous)
-          .fill(Color(UIColor.systemOrange))
+          .fill(Color.orange)
           .frame(width: 64, height: 64)
           .padding()
        
@@ -372,7 +372,7 @@ private struct Sample2D: Identifiable {
       
       ReorderableHStack($sample.row) { $sample in
         RoundedRectangle(cornerRadius: 24, style: .continuous)
-          .fill(Color(sample.color))
+          .fill(sample.color)
           .frame(width: 64, height: 64)
           .padding()
       }
